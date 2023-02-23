@@ -1,17 +1,20 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom';
 
-export const NavCategorias = () => {
+ const NavCategorias = () => {
   
-    const categorias = [{id:0, name:"categoria 1"},
-    {id:1, name:"categoria 2"},
-    {id:2, name:"categoria 3"}]
+    const categorias = [{id:0, name:"electronics", route:'/category/electronics'},
+    {id:1, name:"jewelery ", route:"/category/jewelery"},
+    {id:2, name:"men's clothing", route:"/category/men's clothing"}, 
+    {id:3, name:"women's clothing", route:"/category/women's clothing"}]
 
+   
     return (
         <nav >
-        <ul style={style.contenedor}>
+        <ul  style={style.contenedor}>
         {
         categorias.map((category)=>{
-          return <a key={categorias.id} href='alt' style={style.links}> {category.name} </a>
+          return <Link Link key={category.id} style={style.links} to={category.route}> {category.name} </Link>
         })
       }
       </ul>
