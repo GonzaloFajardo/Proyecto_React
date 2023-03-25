@@ -7,7 +7,7 @@ import NavCategorias from './NavCategorias';
 import CartWidget from './CartWidget';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = ({}) => {
+const Navbar = ({ name, children}) => {
 
   
 
@@ -18,6 +18,7 @@ const Navbar = ({}) => {
         <img src={tienda} alt="icono tienda" style={style.imagen}></img>
         </Link>
         <h1>Ecommerce</h1>
+        
         <NavCategorias></NavCategorias>
 
         <Link to={"/cart"}>

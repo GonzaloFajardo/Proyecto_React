@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import ItemCount from "./ItemCount";
 import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
+import {db} from './../firebase/firebase'
+import {getDocs, collection, query, where} from "firebase/firestore";
 
 /*
 const InicialProductos = [{name:'lucas', id: 1},{name:'orlans' , id: 2}, {name:'pepe', id: 3}];
@@ -31,6 +33,30 @@ const queryproductos = new Promise((resolve, rejected)=>{
 
 
 useEffect(()=>{
+
+  const productsCollection = collection(db, "products");
+  const q = id
+    ? query(productsCollection, where("category", "==", id))
+    : productsCollection;
+
+  getDocs(q)
+    .then((data) => {
+      const list = data.docs.map((product) => {
+        return {
+          ...product.data(),
+          id: product.id,
+        };
+      });
+      setProducto(list);
+    })
+    .catch(() => {
+      setError(true);
+    });
+
+
+
+
+    // METODO CON THEN Y CATCH
   // queryproductos.then((data)=>{
   //   setProducto(data);
   // }) .catch((err)=>{
@@ -43,6 +69,8 @@ useEffect(()=>{
   //           .then(json=>console.log(json))
   //           .catch((e)=>{console.log(e);})
 
+
+  /* METODO CON ASYC AWAY
           const getProductos = async ()=>{
             try{
               
@@ -61,8 +89,10 @@ useEffect(()=>{
             
 
           }
-          getProductos();
+          getProductos();*/
 },[id]);
+
+
 
 
   const onAdd2 = () => {
@@ -73,9 +103,7 @@ useEffect(()=>{
     return (
       <>
       <h1>{prop}</h1> 
-      <ItemCount onAdd={onAdd2}> 
       
-      </ItemCount>
       {!error ? <>
       {products.length ? (
         <ItemList products={products} />
