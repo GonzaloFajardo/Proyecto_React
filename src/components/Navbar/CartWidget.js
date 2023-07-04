@@ -1,13 +1,15 @@
-import React from 'react'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import React, { useContext } from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { CustomContext } from "../../context/CustomContext";
 
-export const CartWidget = () => {
+ const CartWidget = () => {
   
-   
+    const { totals } = useContext(CustomContext);
 
     return (
         <div style={style.container}>
-        <ShoppingCartIcon fontSize='large' color='success' href='alt'  alt="icono carrito" style={style.icon}></ShoppingCartIcon> <span style={style.notificacion}>4</span>
+        <ShoppingCartIcon fontSize='large' color='success' href='alt'  alt="icono carrito" style={style.icon}></ShoppingCartIcon> {totals.qty > 0 && <span style={style.notificacion}>{totals.qty}</span>}
+        
         </div>
   )
 }
